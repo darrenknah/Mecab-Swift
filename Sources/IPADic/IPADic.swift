@@ -11,7 +11,7 @@ import Dictionary
 /**
 A wrapper around IPADic. A number of dictionaries for mecan can be found on the internet. Different dictionaries privde different features (POS tagging etc), and so far I have not been able to get this information out of mecab at runtime. The dictionary scheme is contained in the dicrc file.
 */
-public struct IPADic: DictionaryProviding{
+public struct IPADic: DictionaryProviding, Sendable{
     
     public let url:URL
     

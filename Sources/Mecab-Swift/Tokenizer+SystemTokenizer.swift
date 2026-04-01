@@ -8,7 +8,7 @@
 import Foundation
 import StringTools
 
-@available(OSX 10.11, *)
+
 extension Tokenizer{
     
     func systemTokenizerTokenize(text:String, transliteration:Transliteration = .hiragana)->[Annotation]{

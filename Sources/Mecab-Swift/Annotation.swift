@@ -17,7 +17,7 @@ import Dictionary
  - dictionaryForm: in case of verbs or adjectives, the dictionary form of the token.
  */
 
-public struct Annotation:Equatable, FuriganaAnnotating{
+public struct Annotation:Equatable, FuriganaAnnotating, Sendable{
     
     public let base:String
     public let reading:String

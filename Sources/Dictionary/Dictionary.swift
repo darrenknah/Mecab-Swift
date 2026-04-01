@@ -11,7 +11,7 @@ import Foundation
  The protocol for the dictionary type. 
  */
 
-public protocol DictionaryProviding:TokenIndexProviding, PartOfSpeechProviding   {
+public protocol DictionaryProviding:TokenIndexProviding, PartOfSpeechProviding, Sendable   {
     var url:URL{get}
 }
 

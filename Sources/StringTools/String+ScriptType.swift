@@ -9,7 +9,7 @@
 import Foundation
 
 public extension String{
-    struct  ScriptType:OptionSet{
+    struct  ScriptType:OptionSet, Sendable{
         public let rawValue: Int
         
         public static let noJapaneseScript=ScriptType(rawValue: 1 << 0)

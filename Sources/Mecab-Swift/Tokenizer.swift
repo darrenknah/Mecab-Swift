@@ -6,12 +6,12 @@ import Dictionary
 /**
 A tokenizer /  morphological analyzer for Japanese
 */
-public class Tokenizer{
+public actor Tokenizer{
     
     /**
     How to display found tokens in Japanese text
     */
-   public enum Transliteration{
+    public enum Transliteration: Sendable{
         case hiragana
         case katakana
         case romaji
@@ -31,12 +31,12 @@ public class Tokenizer{
     
     private let dictionary:DictionaryProviding
     
-    fileprivate let _mecab:OpaquePointer!
+    nonisolated(unsafe) fileprivate let _mecab:OpaquePointer!
     
     /**
      The version of the underlying mecab engine.
      */
-    public class var version:String{
+    public static var version:String{
         return String(cString: mecab_version(), encoding: .utf8) ?? ""
     }
     
