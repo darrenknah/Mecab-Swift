@@ -8,7 +8,7 @@
 import Foundation
 
 /// Various Tokens ofr Part-of-Speech tagging.
-public enum PartOfSpeech:CustomStringConvertible{
+public enum PartOfSpeech:CustomStringConvertible, Sendable{
     case verb
     case particle
     case noun

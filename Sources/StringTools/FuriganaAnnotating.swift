@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol FuriganaAnnotating{
+public protocol FuriganaAnnotating: Sendable{
     var base:String {get}
     var reading:String {get}
     var range:Range<String.Index> {get}

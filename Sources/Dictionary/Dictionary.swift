@@ -10,7 +10,7 @@ import Foundation
 /**
  The protocol for the dictionary type. 
  */
-public protocol DictionaryProviding:TokenIndexProviding, PartOfSpeechProviding   {
+public protocol DictionaryProviding:TokenIndexProviding, PartOfSpeechProviding, Sendable {
     
     /// The location of the dictionary folder.
     var url:URL{get}

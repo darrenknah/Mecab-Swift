@@ -15,7 +15,7 @@ public extension String{
         `ScriptType`, an `OptionSet` to detect the presence of the three major Japanese scripts in a string.
      */
     
-    struct ScriptType:OptionSet{
+    struct ScriptType:OptionSet, Sendable{
         public let rawValue: Int
         
         /// no Japanese characters present
