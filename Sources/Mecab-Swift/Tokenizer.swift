@@ -76,16 +76,51 @@ public class Tokenizer{
                 //MeCab splits the commands by spaces, so we need to escape the path passed inti the function.
                 //We replace the percent encoded space when opening the dictionary. This is mostly relevant when the dictionary os located inside a folder of which we cannot control the name, i.e. Application Support
                 else{ throw TokenizerError.initializationFailure("URL Conversion Failed \(dictionary)")}
-            
+
             guard let tokenizer=mecab_new2("-d \(dictPath)") else {
                 let error=String(cString: mecab_strerror(nil), encoding: .utf8) ?? ""
                 throw TokenizerError.initializationFailure("Opening Dictionary Failed \(dictionary) \(error)")
             }
             return tokenizer
         })
-        
+
         _mecab=tokenizer
-       
+
+    }
+
+    /**
+     Initializes the Tokenizer with a system dictionary and an optional user dictionary.
+     - parameters:
+        - dictionary:  A Dictionary struct that encapsulates the dictionary and its positional information.
+        - userDictionary: An optional URL to a compiled MeCab user dictionary (.dic file).
+     - throws:
+        * `TokenizerError`: Typically an error that indicates that the dictionary didn't exist or couldn't be opened.
+     */
+    public init(dictionary:DictionaryProviding, userDictionary:URL) throws{
+        self.dictionary=dictionary
+        self.isSystemTokenizer=false
+        let tokenizer=try dictionary.url.withUnsafeFileSystemRepresentation({path->OpaquePointer in
+            guard let path=path,
+                let dictPath=String(cString: path).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+                else{ throw TokenizerError.initializationFailure("URL Conversion Failed \(dictionary)")}
+
+            let userDictArg=userDictionary.withUnsafeFileSystemRepresentation({ userPath -> String? in
+                guard let userPath=userPath,
+                    let userDictPath=String(cString: userPath).addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
+                    else { return nil }
+                return "-u \(userDictPath)"
+            }) ?? ""
+
+            let args=userDictArg.isEmpty ? "-d \(dictPath)" : "-d \(dictPath) \(userDictArg)"
+
+            guard let tokenizer=mecab_new2(args) else {
+                let error=String(cString: mecab_strerror(nil), encoding: .utf8) ?? ""
+                throw TokenizerError.initializationFailure("Opening Dictionary Failed \(dictionary) \(error)")
+            }
+            return tokenizer
+        })
+
+        _mecab=tokenizer
     }
     
     /**
