@@ -1,6 +1,6 @@
 //
 //  PartOfSpeech.swift
-//  
+//
 //
 //  Created by Morten Bertz on 2021/06/22.
 //
@@ -15,9 +15,13 @@ public enum PartOfSpeech:CustomStringConvertible{
     case adverb
     case prefix
     case symbol
+    case auxiliaryVerb
+    case interjection
+    case conjunction
+    case preNounAdjective
     case unknown
 
-    
+
     public var description: String{
         switch self {
         case .verb:
@@ -36,7 +40,14 @@ public enum PartOfSpeech:CustomStringConvertible{
             return "prefix"
         case .symbol:
             return "symbol"
-
+        case .auxiliaryVerb:
+            return "verb"
+        case .interjection:
+            return "interjection"
+        case .conjunction:
+            return "adverb"
+        case .preNounAdjective:
+            return "adjective"
         }
     }
 }
